@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>config-manger</title>
+    <link rel="stylesheet" href="/static/layui-v2.6.8/css/layui.css">
+</head>
+<body class="body">
+<!-- 工具集 -->
+<div class="my-btn-box" style="text-align: center;margin-top: 100px">
+    <fieldset class="layui-elem-field site-demo-button" style="margin-top: 30px">
+        <legend>配置中心</legend>
+			<form class="layui-form">
+                <div class="layui-input-inline" >
+					<select  lay-verify="required" id="nodes">
+					</select>
+				</div>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="nodePath" placeholder="请输入配置节点路径(以 / 开头)" id="nodePath" lay-verify="required">
+                </div>
+				<div class="layui-btn-group" style="margin-left: 10px;">
+					<a class="layui-btn btn-default" id="query"><i class="layui-icon">&#xe64c;</i>查询并编辑</a>
+				</div>
+			</form>
+    </fieldset>
+    <textarea id="content" class="layui-code" style="display: none;"></textarea>
+</div>
+
+<!-- ---------------------------------------------------------------------- -->
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/json2.js"></script>
+<script src="/static/layui-v2.6.8/layui.js"></script>
+<script type="text/javascript">
+
+    // layui方法
+    var layer;
+    var form;
+    var upload;
+    var code;
+    var layedit;
+    const baseUrl = "/config";
+    layui.use(['form', 'layer', 'upload', 'code', 'layedit'], function() {
+        // 操作对象
+        var	$ = layui.jquery;
+        layer = layui.layer;
+        form = layui.form;
+        upload = layui.upload;
+        code = layui.code;
+        layedit = layui.layedit;
+        //终端连接:
+        $('#query').on('click',function(){
+            layer.load(0, {shade: 0.3});
+            let node=$('#nodes').val();
+            let nodePath=$('#nodePath').val();
+            $.ajax({
+                type:"get",
+                url: baseUrl + "/getContent",
+                // async:true,
+                data:{
+                    "node":node,
+                    "path":nodePath,
+                },
+                success:function(data){
+                    layer.closeAll();
+                    $('#content').val(data);
+                    // if(data.code){
+                    // }else {
+                    //     layer.alert(data.msg);
+                    // }
+                },
+                error:function(){
+                    layer.alert("系统异常!");
+                }
+            });
+        });
+
+        //页面加载完毕时执行
+        $(document).ready(function(){
+            $.ajax({
+                type:"get",
+                url:baseUrl + "/getNodes",
+                async:true,
+                dataType:"json",
+                success:function(data){
+                    $('#nodes').empty();
+                    $('#nodes').append("<option value=''>请选择查询节点</option>");
+                    for(var i=0;i<data.length;i++){
+                        $("#nodes").append('<option value='+data[i]+'>'+data[i]+'</option>');
+                    }
+                    layui.use('form', function(){
+                        let form = layui.form; //重新渲染form元素
+                        form.render();
+                    });
+                }
+            });
+
+        });
+    });
+</script>
+
+</body>
+
+</html>

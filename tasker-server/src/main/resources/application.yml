@@ -1,0 +1,10 @@
+server:
+  port: 8100
+spring:
+  application:
+    name: tasker-server
+
+#tasker:
+#  server:
+#    name: tasker1 #节点id
+#    type: OUT #节点类型

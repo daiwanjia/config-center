@@ -1,0 +1,11 @@
+server:
+  port: 8101
+#  servlet:
+#    context-path: /config-manger
+spring:
+  application:
+    name: config-manger
+  devtools:
+    restart:
+      additional-paths: static/**,templates/**
+      enabled: true

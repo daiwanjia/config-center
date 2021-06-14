@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>config-manger</title>
+    <link rel="stylesheet" href="/static/layui-v2.6.8/css/layui.css">
+</head>
+<body class="body">
+<!-- 工具集 -->
+<div class="my-btn-box" style="text-align: center;margin-top: 100px">
+		<span class="fl">
+			<form class="layui-form">
+                <div class="layui-input-inline" >
+					<select  lay-verify="required" id="servers">
+					</select>
+				</div>
+				<div class="layui-btn-group" style="margin-left: 10px;">
+					<a class="layui-btn btn-default" id="connect"><i class="layui-icon">&#xe64c;</i>连接</a>
+				</div>
+                <div class="layui-input-inline" style="margin-left: 10px;">
+                     <a class="layui-btn btn-default" id="uploadFile"><i class="layui-icon">&#xe67c;</i>上传文件至多服务器</a>
+                </div>
+			</form>
+        </span>
+    <fieldset class="layui-elem-field site-demo-button" style="margin-top: 30px">
+        <legend>新建连接</legend>
+        <form class="layui-form" id="serverForm" style="margin-top: 10px;margin-left: 35%">
+            <div class="layui-form-item">
+                <label class="layui-form-label">servername:</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="serverName" placeholder="连接唯一标识" id="serverName" lay-verify="required">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">ip:</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="ip"  id="ip" lay-verify="required">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">port:</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="port" placeholder="default port:22" id="port">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">username:</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="username"  id="username" lay-verify="required">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">password:</label>
+                <div class="layui-input-inline">
+                    <input type="password" class="layui-input" name="password"  id="password" lay-verify="required">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-inline">
+                    <input type="checkbox" id="remember" title="记住我" lay-skin="primary">
+                    <input type="button" id="newConnect" class="layui-btn" value="连接">
+                </div>
+            </div>
+        </form>
+    </fieldset>
+    <div>
+        <div class="layui-input-inline" style="width: 200px">
+            <input type="text" class="layui-input" name="cnName"  id="cnName" lay-verify="required">
+        </div>
+        <div class="layui-input-inline">
+            <input type="button" id="abstract" class="layui-btn" value="抽象化">
+        </div>
+    </div>
+</div>
+<div  id="uploadDiv" style="display: none;">
+    <form class="layui-form">
+        <div class="layui-input-inline" id="checkboxServer">
+        </div>
+        <div class="layui-form-item" style="margin-top: 10px">
+            <input type="text" placeholder="请输入上传目录" class="layui-input" id="dir" lay-verify="required">
+        </div>
+        <div class="layui-upload">
+            <button type="button" class="layui-btn" id="choiseFile">选择文件</button>
+            <div class="layui-upload-list">
+                <table class="layui-table">
+                    <thead>
+                    <tr><th>文件名</th>
+                        <th>大小</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr></thead>
+                    <tbody id="fileList"></tbody>
+                </table>
+            </div>
+            <button type="button" class="layui-btn" id="upload">开始上传</button>
+        </div>
+    </form>
+</div>
+<!-- ---------------------------------------------------------------------- -->
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/json2.js"></script>
+<script src="/static/layui-v2.6.8/layui.js"></script>
+<script type="text/javascript">
+
+    // layui方法
+    var layer;
+    var form;
+    var upload;
+    var code;
+    var layedit;
+    layui.use(['form', 'layer', 'upload', 'code', 'layedit'], function() {
+        // 操作对象
+        var	$ = layui.jquery;
+        layer = layui.layer;
+        form = layui.form;
+        upload = layui.upload;
+        code = layui.code;
+        layedit = layui.layedit;
+        //终端连接:
+        $('#connect').on('click',function(){
+            layer.load(0, {shade: 0.3});
+            var server=$('#servers').val();
+            $.ajax({
+                type:"get",
+                url:"/jssh/sshLogin?server="+server,
+                async:true,
+                success:function(data){
+                    layer.closeAll();
+                    if(data.code){
+                        layer.confirm(data.msg, function(){
+                            window.location.href="./main.html?server="+server+"&ip="+data.param;
+                        });
+                    }else {
+                        layer.alert(data.msg);
+                    }
+                },
+                error:function(){
+                    layer.alert("系统异常!");
+                }
+            });
+        });
+
+        $('#newConnect').click(function () {
+            layer.load(0, {shade: 0.3});
+            var serverName=$('#serverName').val();
+            var ip=$('#ip').val();
+            var port=$('#port').val();
+            var username=$('#username').val();
+            var password=$('#password').val();
+            var remember=$("input[id='remember']").is(':checked');
+            $.ajax({
+                type:"post",
+                url:"/jssh/sshLogin2",
+                async:true,
+                data:{
+                    "serverName":serverName,
+                    "ip":ip,
+                    "port":port,
+                    "username":username,
+                    "password":password,
+                    "isRemember":remember
+                },
+                success:function(data){
+                    layer.closeAll();
+                    if(data.code){
+                        layer.confirm(data.msg, function(){
+                            window.location.href="./main.html?server="+data.param+"&ip="+data.param2;
+                        });
+                    }else {
+                        layer.alert(data.msg);
+                    }
+                },
+                error:function(){
+                    layer.closeAll();
+                    layer.alert("系统异常!");
+                }
+            });
+        });
+        $('#uploadFile').click(function () {
+            layer.open({
+                type: 1,
+                title: "选择服务器并上传文件",
+                skin: 'layui-layer-molv',
+                area: ['800px', '500px'],
+                content: $("#uploadDiv"),
+                cancel: function(){
+                    //右上角关闭回调
+                    location.reload();
+                }
+            });
+        });
+
+        //抽象化转换
+        $('#abstract').click(function () {
+            var msg = $('#cnName').val();
+            $.ajax({
+                type:"post",
+                url:"/emoji/abstraction",
+                async:true,
+                data:{
+                    "msg":msg,
+                },
+                success:function(data){
+                    layer.closeAll();
+                    if(data.code){
+                        layer.alert(data.msg);
+                    }else {
+                        layer.alert(data.msg);
+                    }
+                },
+                error:function(){
+                    layer.closeAll();
+                    layer.alert("系统异常!");
+                }
+            });
+        });
+
+        //多文件列表示例
+        var demoListView = $('#fileList')
+            ,uploadListIns = upload.render({
+            elem: '#choiseFile'
+            ,url: '/jssh/upload2Servers'
+            ,accept: 'file'
+            ,multiple: true
+            ,auto: false
+            ,bindAction: '#upload'
+            ,choose: function(obj){
+                var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                //读取本地文件
+                obj.preview(function(index, file, result){
+                    var tr = $(['<tr id="upload-'+ index +'">'
+                        ,'<td>'+ file.name +'</td>'
+                        ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
+                        ,'<td>等待上传</td>'
+                        ,'<td>'
+                        ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+                        ,'</td>'
+                        ,'</tr>'].join(''));
+                    //删除
+                    tr.find('.demo-delete').on('click', function(){
+                        delete files[index]; //删除对应的文件
+                        tr.remove();
+                        uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                    });
+                    demoListView.append(tr);
+                });
+            }
+            ,data:{
+                "servers":function () {
+                    var services = [];
+                    $('input[type=checkbox]:checked').each(function() {
+                        services.push($(this).val());
+                    });
+                    return services;
+                },
+                "dir":function () {
+                    var dir=$('#dir').val();
+                    return dir;
+                }
+            }
+            ,before: function(){
+                layer.load(0, {shade: 0.3});
+            }
+            ,done: function(res, index, upload){
+                layer.closeAll('loading');
+                var tr = demoListView.find('tr#upload-'+ index)
+                    ,tds = tr.children();
+                tds.eq(2).html('<span">'+res.msg+'</span>');
+                tds.eq(3).html(''); //清空操作
+                return delete this.files[index]; //删除文件队列已经上传成功的文件
+            }
+            ,error: function(index, upload){
+                layer.closeAll('loading');
+                var tr = demoListView.find('tr#upload-'+ index)
+                    ,tds = tr.children();
+                tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+            }
+        });
+        //页面加载完毕时执行
+        $(document).ready(function(){
+            $.ajax({
+                type:"get",
+                url:"/jssh/getServers",
+                async:true,
+                dataType:"json",
+                success:function(data){
+                    $('#servers').empty();
+                    $('#checkboxServer').empty();
+                    $("#servers").append("<option value=''>请选择连接终端</option>");
+                    for(var i=0;i<data.length;i++){
+                        $("#servers").append('<option value='+data[i].serverName+'>'+data[i].serverName+'['+data[i].ip+']</option>');
+                        $('#checkboxServer').append('<input type="checkbox" value='+data[i].serverName+' title='+data[i].serverName+'['+data[i].ip+']>');
+                    }
+                    layui.use('form', function(){
+                        var form = layui.form; //重新渲染form元素
+                        form.render();
+                    });
+                }
+            });
+
+        });
+    });
+</script>
+
+</body>
+
+</html>
