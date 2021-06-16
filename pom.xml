@@ -11,6 +11,7 @@
     <modules>
         <module>tasker-server</module>
         <module>config-manger</module>
+        <module>product-server</module>
     </modules>
 
     <properties>
@@ -70,6 +71,11 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.14</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

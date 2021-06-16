@@ -1,12 +1,16 @@
 package com.dwj.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * @author daiwj
  * @date 2021/06/10
  * @description:
  */
 public class Server {
+    @JSONField(name = "server.name")
     private String name;
+    @JSONField(name = "server.ip")
     private String ip;
 
     public String getName() {

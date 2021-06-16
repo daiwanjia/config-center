@@ -23,15 +23,13 @@ import java.util.concurrent.TimeUnit;
  */
 @SpringBootApplication
 @Slf4j
-public class TaskerApplication {
+public class ProductApplication {
     public static void main(String[] args) {
-        SpringApplication.run(TaskerApplication.class, args);
+        SpringApplication.run(ProductApplication.class, args);
         //服务注册
         serverRegister();
         //启动监听
         ZookeeperListener.getInstance().startPathChildrenListener();
-//        ZookeeperListener.getInstance().startNodeListener();//指定节点进行监听
-//        ZookeeperListener.getInstance().startTreeNodeListener();//指定节点和子节点变更监听
         addZookeeperFactoryObservers();
         exit();
     }

@@ -7,7 +7,6 @@ import com.dwj.resource.SysProperties;
 import com.dwj.zookeeper.ZookeeperFactory;
 import com.dwj.zookeeper.ZookeeperUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -87,6 +86,11 @@ public class ConfigController {
         return serverList;
     }
 
+    /**
+     * 获取指定节点数据
+     * @param request
+     * @return
+     */
     @RequestMapping("/getContent")
     public String getContent(@RequestBody Map<String, Object> request){
         log.info("请求数据信息为：{}", request);
@@ -100,8 +104,7 @@ public class ConfigController {
             path = path.substring(0, path.length() - 1);
         }
         ZookeeperFactory zookeeper = ZookeeperFactory.getInstance();
-        String rootPath = SysProperties.get("zookeeper.root.path");
-        String nodePath = rootPath + "/" + node + path;
+        String nodePath = ZookeeperUtil.getRootPath() + "/" + node + path;
         log.info("获取的节点路径为：{}", nodePath);
         String data;
         try {
