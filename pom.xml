@@ -11,7 +11,7 @@
     <modules>
         <module>tasker-server</module>
         <module>config-manger</module>
-        <module>product-server</module>
+<!--        <module>product-server</module>-->
     </modules>
 
     <properties>

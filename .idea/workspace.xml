@@ -23,9 +23,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02240801-8687-48bd-9c3d-93cb91e8d5fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/config-center.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-manger/config-manger.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasker-server/tasker-server.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-center.iml" beforeDir="false" afterPath="$PROJECT_DIR$/config-center.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-manger/config-manger.iml" beforeDir="false" afterPath="$PROJECT_DIR$/config-manger/config-manger.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,13 +35,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA 2020.2.4\plugins\maven\lib\maven3" />
-      </MavenGeneralSettings>
-    </option>
   </component>
   <component name="ProjectId" id="1u1naqGTKsoINU1Lm7k3pS8QCz1" />
   <component name="ProjectViewState">
@@ -52,10 +46,27 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/config-manger" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager" selected="Spring Boot.ConfigApplication">
+    <configuration name="ConfigApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="config-manger" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dwj.ConfigApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TaskerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="tasker-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dwj.TaskerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -67,6 +78,7 @@
       <updated>1623842028431</updated>
       <workItem from="1623842029461" duration="208000" />
       <workItem from="1623842247332" duration="113000" />
+      <workItem from="1639480777072" duration="1171000" />
     </task>
     <servers />
   </component>
@@ -83,6 +95,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="4862" y="524" key="#Notifications" timestamp="1623842275191">
