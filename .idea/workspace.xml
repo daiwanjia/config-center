@@ -24,9 +24,6 @@
   <component name="ChangeListManager">
     <list default="true" id="02240801-8687-48bd-9c3d-93cb91e8d5fd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-center.iml" beforeDir="false" afterPath="$PROJECT_DIR$/config-center.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-manger/config-manger.iml" beforeDir="false" afterPath="$PROJECT_DIR$/config-manger/config-manger.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +75,7 @@
       <updated>1623842028431</updated>
       <workItem from="1623842029461" duration="208000" />
       <workItem from="1623842247332" duration="113000" />
-      <workItem from="1639480777072" duration="1171000" />
+      <workItem from="1639480777072" duration="2177000" />
     </task>
     <servers />
   </component>
@@ -96,23 +93,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="4862" y="524" key="#Notifications" timestamp="1623842275191">
-      <screen x="3840" y="0" width="2560" height="1400" />
-    </state>
-    <state x="4862" y="524" key="#Notifications/0.0.1536.824/3840.0.2560.1400@3840.0.2560.1400" timestamp="1623842275191" />
-    <state x="4922" y="477" key="FileChooserDialogImpl" timestamp="1623842344318">
-      <screen x="3840" y="0" width="2560" height="1400" />
-    </state>
-    <state x="4922" y="477" key="FileChooserDialogImpl/0.0.1536.824/3840.0.2560.1400@3840.0.2560.1400" timestamp="1623842344318" />
-    <state x="4788" y="474" key="NewModule_or_Project.wizard" timestamp="1623842351016">
-      <screen x="3840" y="0" width="2560" height="1400" />
-    </state>
-    <state x="4788" y="474" key="NewModule_or_Project.wizard/0.0.1536.824/3840.0.2560.1400@3840.0.2560.1400" timestamp="1623842351016" />
-    <state x="4622" y="345" key="SettingsEditor" timestamp="1623842359344">
-      <screen x="3840" y="0" width="2560" height="1400" />
-    </state>
-    <state x="4622" y="345" key="SettingsEditor/0.0.1536.824/3840.0.2560.1400@3840.0.2560.1400" timestamp="1623842359344" />
   </component>
 </project>
